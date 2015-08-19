@@ -7,11 +7,12 @@ Example:
 
 .. code-block:: python
 
-    from pymarvelsimple.marvel import Marvel, EmptyPage
-    marvel = Marvel(self.public, self.private)
-    characters = self.characters.data.results
+    from pymarvelsimple.marvel import Marvel
 
-    for character in characters:
+    marvel = Marvel(self.public, self.private)
+    characters = marvel.characters_list()
+
+    for character in characters.data.results:
         print character.name
 
     print characters.last_page
