@@ -14,7 +14,7 @@ Example:
     for character in characters:
         print character.name
 
-    print characters.last_name
+    print characters.last_page
     marvel.characters_detail_by_name(u'Thor')
     print character.data.results.name
 
