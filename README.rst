@@ -15,7 +15,8 @@ Example:
         print character.name
 
     print characters.last_page
-    marvel.characters_detail_by_name(u'Thor')
+
+    character = marvel.characters_detail_by_name(u'Thor')
     print character.data.results.name
 
 Play with marvel.
