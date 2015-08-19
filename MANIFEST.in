@@ -1,0 +1,6 @@
+recursive-include pymarvelsimple *
+recursive-include tests *
+recursive-include docs *
+include README.rst CHANGELOG
+global-exclude *.pyc
+global-exclude *.pyo
