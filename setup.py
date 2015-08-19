@@ -24,7 +24,7 @@ tests_require = [
 
 setup(
     name='PyMarvelSimple',
-    version='0.1',
+    version='0.2.dev0',
     description='A wrapper for marvel API.',
     long_description='''
 A wrapper for marvel API, easy to use.
