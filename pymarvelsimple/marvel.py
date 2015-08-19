@@ -100,7 +100,7 @@ class Marvel(object):
         @param pk: The name of the character
         @type  pk: str
 
-        @return: The character
+        @return: The character detail
         @rtype : dict
 
         @raise EmptyPage: The character not found
@@ -123,7 +123,7 @@ class Marvel(object):
         @param pk: The id of the character
         @type  pk: int
 
-        @return: The character
+        @return: The character detail
         @rtype : dict
 
         @raise EmptyPage: The character not found
