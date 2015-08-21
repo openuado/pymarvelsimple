@@ -29,8 +29,14 @@ class Marvel(object):
         @param limit: Item per page used for list (default 10)
         @type limit: int
 
-        @raise ValueError: Item per page is limited to 100
+        @raise ValueError: Item per page is limited to 100 or must be a int
         """
+        if not isinstance(limit, int):
+            try:
+                limit = int(limit)
+            except ValueError:
+                raise ValueError('Limit must be a int')
+
         if limit > 100:
             raise ValueError('Limit greater than 100')
 

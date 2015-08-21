@@ -32,6 +32,13 @@ class MarvelTestCase(unittest.TestCase):
         self.assertRaises(
             ValueError, Marvel, self.public, self.private, '', 200)
 
+    def test_limit_type(self):
+        marvel = Marvel(self.public, self.private, limit='42')
+
+        self.assertEqual(marvel.limit, 42)
+        self.assertRaises(
+            ValueError, Marvel, self.public, self.private, '', 'Foo')
+
     def test_characters_list(self):
         all_characters_name = [
             character.name for character in self.characters.data.results]
