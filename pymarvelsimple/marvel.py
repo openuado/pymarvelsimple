@@ -19,7 +19,7 @@ class Marvel(object):
     """A wrapper for Marvel API, easy to use."""
     def __init__(self, public, private,
                  url='http://gateway.marvel.com/v1/public', limit=10):
-        """To initialize the class.
+        """To initialize the marvel class.
 
         @param public: The public key
         @type public: str
