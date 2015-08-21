@@ -89,7 +89,8 @@ class Marvel(object):
 
         @raise EmptyPage: A empty page
         """
-        characters = bunchify(self._call_api('characters', page, kwargs))
+        characters = bunchify(self._call_api(
+            'characters', page=page, extra_parameters=kwargs))
         self._set_last_page(characters, page)
 
         return characters
@@ -153,7 +154,7 @@ class Marvel(object):
         @raise EmptyPage: A empty page
         """
         comics = bunchify(self._call_api('characters/{pk}/comics'.format(
-            pk=pk), page))
+            pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(comics, page)
 
         return comics
@@ -173,7 +174,7 @@ class Marvel(object):
         @raise EmptyPage: A empty page
         """
         events = bunchify(self._call_api('characters/{pk}/events'.format(
-            pk=pk), page))
+            pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(events, page)
 
         return events
@@ -193,7 +194,7 @@ class Marvel(object):
         @raise EmptyPage: A empty page
         """
         series = bunchify(self._call_api('characters/{pk}/series'.format(
-            pk=pk), page))
+            pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(series, page)
 
         return series
@@ -213,7 +214,7 @@ class Marvel(object):
         @raise EmptyPage: A empty page
         """
         stories = bunchify(self._call_api('characters/{pk}/stories'.format(
-            pk=pk), page))
+            pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(stories, page)
 
         return stories

@@ -58,6 +58,15 @@ class MarvelTestCase(unittest.TestCase):
         page = self.characters.data.total / self.marvel.limit + 42
         self.assertRaises(EmptyPage, self.marvel.characters_list, page)
 
+    def test_characters_list_order_by(self):
+        characters = self.marvel.characters_list(orderBy='-name')
+        all_characters_name = [
+            character.name for character in characters.data.results]
+
+        self.assertEqual(characters.status, u'Ok')
+        self.assertIn(u'Zemo', all_characters_name)
+        self.assertNotIn(u'Professor X', all_characters_name)
+
     def test_characters_by_id(self):
         character = self.marvel.characters_detail_by_name(u'Thor')
 
@@ -103,6 +112,15 @@ class MarvelTestCase(unittest.TestCase):
         self.assertRaises(
             EmptyPage, self.marvel.characters_comics, 1009664, page)
 
+    def test_characters_comics_list_order_by(self):
+        comics = self.marvel.characters_comics(1009664, orderBy='-title')
+        all_comics_title = [
+            comic.title for comic in comics.data.results]
+
+        self.assertEqual(comics.status, u'Ok')
+        self.assertIn(u'X-Men Annual (1970) #3', all_comics_title)
+        self.assertNotIn(u'Avengers (2010) #26', all_comics_title)
+
     def test_characters_series_list(self):
         all_series_title = [
             serie.title for serie in self.series.data.results]
@@ -130,6 +148,15 @@ class MarvelTestCase(unittest.TestCase):
         self.assertRaises(
             EmptyPage, self.marvel.characters_series, 1009664, page)
 
+    def test_characters_series_list_order_by(self):
+        series = self.marvel.characters_series(1009664, orderBy='-title')
+        all_series_title = [
+            serie.title for serie in series.data.results]
+
+        self.assertEqual(series.status, u'Ok')
+        self.assertIn(u'X-Men Annual (1970 - 1991)', all_series_title)
+        self.assertNotIn(u'Avengers Assemble (2004)', all_series_title)
+
     def test_characters_stories_list(self):
         all_stories_title = [
             story.title for story in self.stories.data.results]
@@ -156,3 +183,12 @@ class MarvelTestCase(unittest.TestCase):
         page = self.stories.data.total / self.marvel.limit + 42
         self.assertRaises(
             EmptyPage, self.marvel.characters_stories, 1009664, page)
+
+    def test_characters_stories_list_order_by(self):
+        stories = self.marvel.characters_stories(1009664, orderBy='-id')
+        all_stories_title = [
+            story.title for story in stories.data.results]
+
+        self.assertEqual(stories.status, u'Ok')
+        self.assertIn(u'Cover #97040', all_stories_title)
+        self.assertNotIn(u'Interior #975', all_stories_title)
