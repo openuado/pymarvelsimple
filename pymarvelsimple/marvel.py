@@ -11,6 +11,10 @@ class EmptyPage(Exception):
     pass
 
 
+class RateLimit(Exception):
+    pass
+
+
 class Marvel(object):
     """A wrapper for Marvel API, easy to use."""
     def __init__(self, public, private,
@@ -66,12 +70,17 @@ class Marvel(object):
             querystring += '&' + urllib.urlencode(extra_parameters)
 
         if querystring:
-            return json.loads(requests.get('{url}/{method}{auth}{qs}'.format(
+            call = json.loads(requests.get('{url}/{method}{auth}{qs}'.format(
                 url=self.url, method=method, auth=self._auth_acces(),
                 qs=querystring)).text)
+        else:
+            call = json.loads(requests.get('{url}/{method}{auth}'.format(
+                url=self.url, method=method, auth=self._auth_acces())).text)
 
-        return json.loads(requests.get('{url}/{method}{auth}'.format(
-            url=self.url, method=method, auth=self._auth_acces())).text)
+        if call['code'] == 'RequestThrottled':
+            raise RateLimit(call['message'])
+
+        return call
 
     def _set_last_page(self, object_list, page):
         if object_list.data.total % self.limit == 0:
