@@ -121,6 +121,42 @@ class MarvelTestCase(unittest.TestCase):
         self.assertIn(u'X-Men Annual (1970) #3', all_comics_title)
         self.assertNotIn(u'Avengers (2010) #26', all_comics_title)
 
+    def test_characters_events_list(self):
+        all_events_title = [
+            event.title for event in self.events.data.results]
+
+        self.assertEqual(len(self.events.data.results), 10)
+        self.assertIn(u'Avengers Disassembled', all_events_title)
+        self.assertNotIn(u'World War Hulks', all_events_title)
+
+    def test_characters_events_last_page(self):
+        events_last_page = self.marvel.characters_events(
+            1009664, page=self.events.last_page)
+        all_events_title = [
+            event.title for event in events_last_page.data.results]
+        last_page, count_last_page = self._count_last_page(self.events)
+
+        self.assertEqual(events_last_page.status, u'Ok')
+        self.assertEqual(last_page, self.events.last_page)
+        self.assertEqual(len(events_last_page.data.results),
+                         count_last_page)
+        self.assertIn(u'World War Hulks', all_events_title)
+        self.assertNotIn(u'Avengers Disassembled', all_events_title)
+
+    def test_characters_events_list_empty_page(self):
+        page = self.events.data.total / self.marvel.limit + 42
+        self.assertRaises(
+            EmptyPage, self.marvel.characters_events, 1009664, page)
+
+    def test_characters_events_list_order_by(self):
+        events = self.marvel.characters_events(1009664, orderBy='-name')
+        all_events_title = [
+            event.title for event in events.data.results]
+
+        self.assertEqual(events.status, u'Ok')
+        self.assertIn(u'World War Hulks', all_events_title)
+        self.assertNotIn(u'Avengers Disassembled', all_events_title)
+
     def test_characters_series_list(self):
         all_series_title = [
             serie.title for serie in self.series.data.results]
