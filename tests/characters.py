@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from pymarvelsimple.marvel import Marvel, EmptyPage
+from pymarvelsimple.marvel import Marvel, EmptyPage, InvalidParameters
 
 
 class MarvelTestCase(unittest.TestCase):
@@ -38,6 +38,14 @@ class MarvelTestCase(unittest.TestCase):
         self.assertEqual(marvel.limit, 42)
         self.assertRaises(
             ValueError, Marvel, self.public, self.private, '', 'Foo')
+
+    def test_characters_list_invalid_parameters(self):
+        self.assertRaises(
+            InvalidParameters, lambda: self.marvel.characters_list(
+                orderBy='foo'))
+        self.assertRaises(
+            InvalidParameters, lambda: self.marvel.characters_list(
+                order_by='name'))
 
     def test_characters_list(self):
         all_characters_name = [

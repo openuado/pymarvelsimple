@@ -15,6 +15,10 @@ class RateLimit(Exception):
     pass
 
 
+class InvalidParameters(Exception):
+    pass
+
+
 class Marvel(object):
     """A wrapper for Marvel API, easy to use."""
     def __init__(self, public, private,
@@ -83,6 +87,9 @@ class Marvel(object):
         return call
 
     def _set_last_page(self, object_list, page):
+        if object_list.code == 409:
+            raise InvalidParameters(object_list.status)
+
         if object_list.data.total % self.limit == 0:
             object_list.last_page = int(object_list.data.total / self.limit)
         else:
