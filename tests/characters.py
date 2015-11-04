@@ -111,6 +111,7 @@ class MarvelTestCase(unittest.TestCase):
     def test_characters_comics_last_page(self):
         comics_last_page = self.marvel.characters_comics(
             1009664, self.comics.last_page)
+        title = u'Marvel Masterworks: The Mghty Thor Vol. 2 (Trade Paperback)'
         all_comics_title = [
             comic.title for comic in comics_last_page.data.results]
         last_page, count_last_page = self._count_last_page(self.comics)
@@ -119,7 +120,7 @@ class MarvelTestCase(unittest.TestCase):
         self.assertEqual(last_page, self.comics.last_page)
         self.assertEqual(len(comics_last_page.data.results),
                          count_last_page)
-        self.assertIn(u'Journey Into Mystery (1952) #88', all_comics_title)
+        self.assertIn(title, all_comics_title)
         self.assertNotIn(u'Avengers (2010) #26', all_comics_title)
 
     def test_characters_comics_list_empty_page(self):
