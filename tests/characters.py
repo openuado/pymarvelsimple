@@ -20,7 +20,7 @@ class MarvelTestCase(unittest.TestCase):
 
     def _count_last_page(self, object_list):
         count = object_list.data.total % self.marvel.limit
-        last_page = object_list.data.total / self.marvel.limit
+        last_page = int(object_list.data.total / self.marvel.limit)
         count_last_page = 10 if count == 0 else count
 
         if count != 0:

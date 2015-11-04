@@ -1,10 +1,15 @@
 import datetime
 import hashlib
 import json
-import urllib
+import sys
 
-from bunch import bunchify
+from munch import munchify
 import requests
+
+if sys.version_info.major == 2:
+    from urllib import urlencode
+else:
+    from urllib.parse import urlencode
 
 
 class EmptyPage(Exception):
@@ -56,7 +61,8 @@ class Marvel(object):
     def _auth_acces(self):
         now = datetime.datetime.now().strftime('%Y-%m-%d%H:%M:%S')
         hash_auth = hashlib.md5('{date}{private}{public}'.format(
-            date=now, private=self.private, public=self.public)).hexdigest()
+            date=now, private=self.private, public=self.public).encode('utf-8')
+        ).hexdigest()
         querystring = "?ts={date}&apikey={public}&hash={hash_auth}".format(
             date=now, public=self.public, hash_auth=hash_auth)
 
@@ -71,7 +77,7 @@ class Marvel(object):
                 limit=self.limit, offset=offset)
 
         if extra_parameters:
-            querystring += '&' + urllib.urlencode(extra_parameters)
+            querystring += '&' + urlencode(extra_parameters)
 
         if querystring:
             call = json.loads(requests.get('{url}/{method}{auth}{qs}'.format(
@@ -111,7 +117,7 @@ class Marvel(object):
 
         @raise EmptyPage: A empty page
         """
-        characters = bunchify(self._call_api(
+        characters = munchify(self._call_api(
             'characters', page=page, extra_parameters=kwargs))
         self._set_last_page(characters, page)
 
@@ -129,7 +135,7 @@ class Marvel(object):
         @raise EmptyPage: The character not found
         """
         kwargs['name'] = name
-        characters = bunchify(
+        characters = munchify(
             self._call_api('characters', extra_parameters=kwargs))
 
         if not characters.data.results:
@@ -151,7 +157,7 @@ class Marvel(object):
 
         @raise EmptyPage: The character not found
         """
-        character = bunchify(self._call_api('characters/{pk}'.format(pk=pk)))
+        character = munchify(self._call_api('characters/{pk}'.format(pk=pk)))
 
         if character.code == 404:
             raise EmptyPage('{message} with id: {pk}'.format(
@@ -175,7 +181,7 @@ class Marvel(object):
 
         @raise EmptyPage: A empty page
         """
-        comics = bunchify(self._call_api('characters/{pk}/comics'.format(
+        comics = munchify(self._call_api('characters/{pk}/comics'.format(
             pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(comics, page)
 
@@ -195,7 +201,7 @@ class Marvel(object):
 
         @raise EmptyPage: A empty page
         """
-        events = bunchify(self._call_api('characters/{pk}/events'.format(
+        events = munchify(self._call_api('characters/{pk}/events'.format(
             pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(events, page)
 
@@ -215,7 +221,7 @@ class Marvel(object):
 
         @raise EmptyPage: A empty page
         """
-        series = bunchify(self._call_api('characters/{pk}/series'.format(
+        series = munchify(self._call_api('characters/{pk}/series'.format(
             pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(series, page)
 
@@ -235,7 +241,7 @@ class Marvel(object):
 
         @raise EmptyPage: A empty page
         """
-        stories = bunchify(self._call_api('characters/{pk}/stories'.format(
+        stories = munchify(self._call_api('characters/{pk}/stories'.format(
             pk=pk), page=page, extra_parameters=kwargs))
         self._set_last_page(stories, page)
 
