@@ -48,7 +48,7 @@ A wrapper for marvel API, easy to use.
     packages=find_packages(),
     include_package_data=False,
     install_requires=[
-        'requests', 'bunch',
+        'requests', 'munch',
     ],
     entry_points={
         'console_scripts': [
