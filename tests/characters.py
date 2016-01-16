@@ -192,7 +192,7 @@ class MarvelTestCase(unittest.TestCase):
         self.assertEqual(last_page, self.series.last_page)
         self.assertEqual(len(series_last_page.data.results),
                          count_last_page)
-        self.assertIn(u'X-Treme X-Men (2001 - 2004)', all_series_title)
+        self.assertIn(u'X-Treme X-Men Vol. II (1999)', all_series_title)
         self.assertNotIn(u'Avengers Assemble (2004)', all_series_title)
 
     def test_characters_series_list_empty_page(self):
