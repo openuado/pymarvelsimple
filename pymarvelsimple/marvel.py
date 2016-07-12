@@ -1,6 +1,5 @@
 import datetime
 import hashlib
-import json
 import sys
 
 from munch import munchify
@@ -80,12 +79,12 @@ class Marvel(object):
             querystring += '&' + urlencode(extra_parameters)
 
         if querystring:
-            call = json.loads(requests.get('{url}/{method}{auth}{qs}'.format(
+            call = requests.get('{url}/{method}{auth}{qs}'.format(
                 url=self.url, method=method, auth=self._auth_acces(),
-                qs=querystring)).text)
+                qs=querystring)).json()
         else:
-            call = json.loads(requests.get('{url}/{method}{auth}'.format(
-                url=self.url, method=method, auth=self._auth_acces())).text)
+            call = requests.get('{url}/{method}{auth}'.format(
+                url=self.url, method=method, auth=self._auth_acces())).json()
 
         if call['code'] == 'RequestThrottled':
             raise RateLimit(call['message'])
