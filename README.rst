@@ -1,5 +1,15 @@
 Introduction
 ============
+
+.. image:: https://img.shields.io/pypi/v/pymarvelsimple.svg
+   :alt: Latest release on the Python Cheeseshop (PyPI)
+   :target: https://pypi.python.org/pypi/pymarvelsimple
+
+.. image:: https://travis-ci.org/hobbestigrou/pymarvelsimple.svg?branch=master
+   :alt: Build status of perf on Travis CI
+   :target: https://travis-ci.org/hobbestigrou/pymarvelsimple
+
+
 PyMarvelSimple is a wrapper for Marvel API. Abstract the authorization and API
 call.
 
