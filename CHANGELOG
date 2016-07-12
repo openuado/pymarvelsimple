@@ -3,10 +3,15 @@ Changelog
 Revision history for PyMarvelSimple.
 
 
-0.4 (unreleased)
+0.4 (2016-07-12)
 ----------------
 
-- Nothing changed yet.
+- Fix extra parameters for all list method.
+- Add events test.
+- Add a exceded call exception.
+- Catch list error.
+- Fix test of the last page.
+- Python 3 support.
 
 
 0.3 (2015-08-19)
