@@ -23,11 +23,11 @@ Example:
     characters = marvel.characters_list()
 
     for character in characters.data.results:
-        print character.name
+        print(character.name)
 
-    print characters.last_page
+    print(characters.last_page)
 
     character = marvel.characters_detail_by_name(u'Thor')
-    print character.data.results.name
+    print(character.data.results.name)
 
 Play with marvel.
