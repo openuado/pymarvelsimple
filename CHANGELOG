@@ -3,10 +3,11 @@ Changelog
 Revision history for PyMarvelSimple.
 
 
-0.5 (unreleased)
+0.5 (2016-07-12)
 ----------------
 
-- Nothing changed yet.
+- Test on the last python version.
+- Fix test of the last page.
 
 
 0.4 (2016-07-12)
