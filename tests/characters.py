@@ -228,7 +228,7 @@ class MarvelTestCase(unittest.TestCase):
         self.assertEqual(last_page, self.stories.last_page)
         self.assertEqual(len(stories_last_page.data.results),
                          count_last_page)
-        self.assertIn(u'Cover #97040', all_stories_title)
+        self.assertIn(u'cover to Avengers VS Infinite #1', all_stories_title)
         self.assertNotIn(u'Interior #975', all_stories_title)
 
     def test_characters_stories_list_empty_page(self):
